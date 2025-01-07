@@ -5,8 +5,7 @@ const InputWrapper = styled(Box)({
   gap: "16px",
 
   "& .MuiInputBase-input": {
-    border: "2px solid",
-    padding: "2px",
+    padding: "8px",
   },
 
   "& .MuiOutlinedInput-root": {

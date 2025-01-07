@@ -5,6 +5,7 @@ import { Container, Content } from "./style";
 
 import { Outlet, useNavigate } from "react-router-dom";
 import { routes } from "../../utils/routes";
+import { SnackbarProvider } from "../../context/SnackbarContext";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -15,16 +16,18 @@ const Layout = () => {
   }, []);
 
   return (
-    <Container>
-      <Sidebar />
-      <Divider
-        orientation="vertical"
-        sx={{ height: "100vh", borderWidth: "1px" }}
-      />
-      <Content>
-        <Outlet />
-      </Content>
-    </Container>
+    <SnackbarProvider>
+      <Container>
+        <Sidebar />
+        <Divider
+          orientation="vertical"
+          sx={{ height: "100vh", borderWidth: "1px" }}
+        />
+        <Content>
+          <Outlet />
+        </Content>
+      </Container>
+    </SnackbarProvider>
   );
 };
 

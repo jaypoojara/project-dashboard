@@ -9,11 +9,13 @@ import {
   fetchProjectDetails,
   updateProjectDetails,
 } from "../../api/productApi";
+import { useSnackbar } from "../../context/SnackbarContext";
 
 const ProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
+  const { showSnackbar } = useSnackbar();
 
   const getProductDetailsById = (id) => {
     fetchProjectDetails(id)
@@ -29,9 +31,16 @@ const ProjectDetails = () => {
   }, []);
 
   const updateProductDetails = () => {
+    if (projectDetails.endDate < projectDetails.startDate) {
+      showSnackbar("Please choose appropriate dates", "");
+      return;
+    }
     updateProjectDetails(id, projectDetails)
-      .then(() => navigate(`${routes.projectList}`))
-      .catch((error) => console.error("Error updating project:", error));
+      .then(() => {
+        showSnackbar("Details updated successfully", "success");
+        navigate(`${routes.projectList}`);
+      })
+      .catch((error) => showSnackbar("Error updating project:", error));
   };
 
   const handleChange = (e) => {
@@ -71,6 +80,7 @@ const ProjectDetails = () => {
         label={"Start Date"}
         value={projectDetails?.startDate}
         handleChange={handleChange}
+        type="date"
       />
 
       <CustomInput
@@ -78,6 +88,7 @@ const ProjectDetails = () => {
         label={"End Date"}
         value={projectDetails?.endDate}
         handleChange={handleChange}
+        type="date"
       />
 
       <CustomInput
