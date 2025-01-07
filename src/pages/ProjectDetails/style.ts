@@ -17,8 +17,8 @@ const DescriptionBox = styled(Box)({
   "& .MuiInputBase-input": {
     width: "450px",
 
-    "@media (max-width: 820px)": {
-      width: "auto",
+    "@media (max-width: 700px)": {
+      width: "50vw",
     },
   },
 });
