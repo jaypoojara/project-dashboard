@@ -3,17 +3,11 @@ import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../utils/constants/routes";
 import { useProjectContext } from "../../context/ProjectContext";
+import { projectListColumns } from "./constant";
 
 const ProjectList = () => {
   const navigate = useNavigate();
   const { projectList } = useProjectContext();
-  const columns = [
-    { id: "id", label: "Project ID" },
-    { id: "projectName", label: "Project Name", width: "250px" },
-    { id: "startDate", label: "Start Date" },
-    { id: "endDate", label: "End Date" },
-    { id: "projectManager", label: "Project Manager" },
-  ];
 
   const handleEdit = (projectId: string) => {
     navigate(`${routes.projectDetails}/${projectId}`);
@@ -22,7 +16,7 @@ const ProjectList = () => {
   return (
     <Box sx={{ width: "100%" }}>
       <CustomTable
-        columns={columns}
+        columns={projectListColumns}
         rows={projectList}
         handleEdit={handleEdit}
       />

@@ -1,17 +1,10 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Project } from "../../api/type";
 import CustomTable from ".";
+import { projectListColumns } from "../../pages/ProjectList/constant";
 
 describe("CustomTable", () => {
   const mockHandleEdit = jest.fn();
-
-  const columns = [
-    { label: "Project Name", id: "projectName" },
-    { label: "Start Date", id: "startDate" },
-    { label: "End Date", id: "endDate" },
-    { label: "Project Manager", id: "projectManager" },
-    { label: "Is Favourite", id: "isFavourite" },
-  ];
 
   const rows: Project[] = [
     {
@@ -34,17 +27,25 @@ describe("CustomTable", () => {
 
   it("renders the table with correct headers", () => {
     render(
-      <CustomTable rows={rows} columns={columns} handleEdit={mockHandleEdit} />
+      <CustomTable
+        rows={rows}
+        columns={projectListColumns}
+        handleEdit={mockHandleEdit}
+      />
     );
 
-    columns.forEach((column) => {
+    projectListColumns.forEach((column) => {
       expect(screen.getByText(column.label)).toBeInTheDocument();
     });
   });
 
   it("renders the table rows with correct data", () => {
     render(
-      <CustomTable rows={rows} columns={columns} handleEdit={mockHandleEdit} />
+      <CustomTable
+        rows={rows}
+        columns={projectListColumns}
+        handleEdit={mockHandleEdit}
+      />
     );
 
     rows.forEach((row) => {
@@ -57,7 +58,11 @@ describe("CustomTable", () => {
 
   it("calls handleEdit when 'Edit' button is clicked", () => {
     render(
-      <CustomTable rows={rows} columns={columns} handleEdit={mockHandleEdit} />
+      <CustomTable
+        rows={rows}
+        columns={projectListColumns}
+        handleEdit={mockHandleEdit}
+      />
     );
 
     const editButtons = screen.getAllByText("Edit");
@@ -69,7 +74,11 @@ describe("CustomTable", () => {
 
   it("does not render action button in the table body", () => {
     render(
-      <CustomTable rows={rows} columns={columns} handleEdit={mockHandleEdit} />
+      <CustomTable
+        rows={rows}
+        columns={projectListColumns}
+        handleEdit={mockHandleEdit}
+      />
     );
 
     const editButtons = screen.getAllByText("Edit");

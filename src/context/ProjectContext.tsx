@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import { Project } from "../api/type";
-import React = require("react");
 import { fetchProjectList } from "../api/productApi";
+import { useSnackbar } from "./SnackbarContext";
 
 type ProjectContextType = {
   projectList: Project[];
@@ -10,14 +10,22 @@ type ProjectContextType = {
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
 
-export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({
+export const ProjectProvider = ({
   children,
+}: {
+  children: React.ReactNode;
 }) => {
   const [projectList, setProjectList] = useState<Project[]>([]);
-  const fetchProjects = () =>
-    fetchProjectList()
-      .then((data) => setProjectList(data))
-      .catch((error) => console.error("Error fetching project list:", error));
+  const { showSnackbar } = useSnackbar();
+
+  const fetchProjects = async () => {
+    try {
+      const data = await fetchProjectList();
+      setProjectList(data);
+    } catch (error) {
+      showSnackbar("Error fetching project list", "error");
+    }
+  };
 
   useEffect(() => {
     fetchProjects();

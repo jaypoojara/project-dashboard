@@ -7,6 +7,7 @@ import {
 } from "../../api/productApi";
 import { useSnackbar } from "../../context/SnackbarContext";
 import ProjectDetails from ".";
+import { ProjectProvider } from "../../context/ProjectContext";
 
 // Mock dependencies
 jest.mock("react-router-dom", () => ({
@@ -47,7 +48,11 @@ describe("ProjectDetails", () => {
 
     (updateProjectDetails as jest.Mock).mockResolvedValue({});
 
-    render(<ProjectDetails />);
+    render(
+      <ProjectProvider>
+        <ProjectDetails />
+      </ProjectProvider>
+    );
   });
 
   it("should render the component and display project details", async () => {

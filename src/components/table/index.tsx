@@ -34,7 +34,7 @@ const CustomTable = ({ rows, columns, handleEdit }: Props) => {
               key={row?.id}
               className="bg-gray-100"
               sx={{
-                borderBottom: "2px solid white",
+                borderBottom: "1px solid",
               }}
             >
               {columns?.map((column) => (

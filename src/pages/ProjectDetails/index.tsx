@@ -20,30 +20,33 @@ const ProjectDetails = () => {
   const { showSnackbar } = useSnackbar();
   const { fetchProjects } = useProjectContext();
 
-  const getProductDetailsById = (id: string) => {
-    fetchProjectDetails(id)
-      .then((data) => setProjectDetails(data))
-      .catch((error) =>
-        console.error("Error fetching project details:", error)
-      );
+  const getProductDetailsById = async (id: string) => {
+    try {
+      const data = await fetchProjectDetails(id);
+      setProjectDetails(data);
+    } catch (error) {
+      showSnackbar("Error fetching project details:", "error");
+    }
   };
 
   useEffect(() => {
     id && getProductDetailsById(id);
   }, []);
 
-  const updateProductDetails = () => {
+  const updateProductDetails = async () => {
     if (projectDetails.endDate < projectDetails.startDate) {
       showSnackbar("Please choose appropriate dates", "error");
       return;
     }
-    updateProjectDetails(id, projectDetails)
-      .then(() => {
-        showSnackbar("Details updated successfully", "success");
-        fetchProjects();
-        navigate(`${routes.projectList}`);
-      })
-      .catch((error) => showSnackbar("Error updating project:", error));
+
+    try {
+      await updateProjectDetails(id, projectDetails);
+      showSnackbar("Details updated successfully", "success");
+      fetchProjects();
+      navigate(`${routes.projectList}`);
+    } catch (error) {
+      showSnackbar("Error updating project:", error);
+    }
   };
 
   const handleChange = (
