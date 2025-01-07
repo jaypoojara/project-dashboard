@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Project } from "./type";
 
 const API_BASE_URL = "http://localhost:3500/projects";
 
@@ -12,7 +13,7 @@ export const fetchProjectList = async () => {
   }
 };
 
-export const fetchProjectDetails = async (id) => {
+export const fetchProjectDetails = async (id: string) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/${id}`);
     return response.data;
@@ -22,7 +23,10 @@ export const fetchProjectDetails = async (id) => {
   }
 };
 
-export const updateProjectDetails = async (id, projectData) => {
+export const updateProjectDetails = async (
+  id: string,
+  projectData: Project
+) => {
   try {
     const response = await axios.patch(`${API_BASE_URL}/${id}`, projectData);
     return response.data;

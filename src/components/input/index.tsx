@@ -1,8 +1,9 @@
-import { TextField, Typography } from "@mui/material";
-import React from "react";
+import { TextField, TextFieldProps, Typography } from "@mui/material";
 import { InputWrapper } from "./style";
-
-const CustomInput = ({ name, label, value, handleChange, ...props }) => {
+type Props = TextFieldProps & {
+  label: string;
+};
+const CustomInput = ({ name, label, value, onChange, ...props }: Props) => {
   return (
     <InputWrapper>
       <Typography width={150} textAlign={"end"}>
@@ -11,7 +12,7 @@ const CustomInput = ({ name, label, value, handleChange, ...props }) => {
       <TextField
         name={name}
         value={value}
-        onChange={handleChange}
+        onChange={onChange}
         size="small"
         {...props}
       />

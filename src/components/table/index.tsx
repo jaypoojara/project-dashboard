@@ -4,10 +4,17 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { TableWrapper } from "./style";
 import CustomButton from "../button";
+import { TableWrapper } from "./style";
+import { Project } from "../../api/type";
 
-const CustomTable = ({ rows, columns, handleEdit }) => {
+type Props = {
+  rows: Project[];
+  columns: { label: string; id: string; width?: string }[];
+  handleEdit: (id: string) => void;
+};
+
+const CustomTable = ({ rows, columns, handleEdit }: Props) => {
   return (
     <TableWrapper>
       <Table>

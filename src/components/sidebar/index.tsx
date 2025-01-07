@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Wrapper } from "./style";
+import { useEffect, useState } from "react";
 import { List, ListItem, ListItemText, Typography } from "@mui/material";
 import { fetchProjectList } from "../../api/productApi";
 import { useLocation } from "react-router-dom";
+import { Wrapper } from "./style";
 
 const Sidebar = () => {
   const [projectList, setProjectList] = useState([]);

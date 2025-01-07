@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
-import Sidebar from "../../components/sidebar";
+import { useEffect } from "react";
 import { Divider } from "@mui/material";
-import { Container, Content } from "./style";
 
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { routes } from "../../utils/routes";
+import Sidebar from "../../components/sidebar";
 import { SnackbarProvider } from "../../context/SnackbarContext";
+import { Container, Content } from "./style";
 
 const Layout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    navigate(routes.projectList);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (location.pathname === "/") navigate(routes.projectList);
+  }, [location]);
 
   return (
     <SnackbarProvider>

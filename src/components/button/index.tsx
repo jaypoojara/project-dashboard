@@ -1,7 +1,10 @@
-import React from "react";
+import { ButtonProps } from "@mui/material";
 import { ButtonWrapper } from "./style";
 
-const CustomButton = ({ variant = "conatined", label, onClick, ...props }) => {
+type Props = ButtonProps & {
+  label: string;
+};
+const CustomButton = ({ variant, label, onClick, ...props }: Props) => {
   return (
     <ButtonWrapper variant={variant} onClick={onClick} {...props}>
       {label}

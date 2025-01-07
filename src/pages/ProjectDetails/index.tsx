@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
-import CustomInput from "../../components/input";
-import CustomButton from "../../components/button";
-import { Container, DescriptionBox, Footer } from "./style";
 import { Box, Typography } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
-import { routes } from "../../utils/routes";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   fetchProjectDetails,
   updateProjectDetails,
 } from "../../api/productApi";
+import CustomButton from "../../components/button";
+import CustomInput from "../../components/input";
 import { useSnackbar } from "../../context/SnackbarContext";
+import { routes } from "../../utils/routes";
+import { Container, DescriptionBox, Footer } from "./style";
+import { Project } from "../../api/type";
 
 const ProjectDetails = () => {
-  const [projectDetails, setProjectDetails] = useState({});
+  const [projectDetails, setProjectDetails] = useState<Project>();
   const { id } = useParams();
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
@@ -32,7 +33,7 @@ const ProjectDetails = () => {
 
   const updateProductDetails = () => {
     if (projectDetails.endDate < projectDetails.startDate) {
-      showSnackbar("Please choose appropriate dates", "");
+      showSnackbar("Please choose appropriate dates", "error");
       return;
     }
     updateProjectDetails(id, projectDetails)
@@ -63,14 +64,14 @@ const ProjectDetails = () => {
         name="projectName"
         label={"Project Name"}
         value={projectDetails?.projectName}
-        handleChange={handleChange}
+        onChange={handleChange}
       />
       <DescriptionBox>
         <CustomInput
           label={"Description"}
           name="description"
           value={projectDetails?.description}
-          handleChange={handleChange}
+          onChange={handleChange}
           multiline
           rows={8}
         />
@@ -79,7 +80,7 @@ const ProjectDetails = () => {
         name={"startDate"}
         label={"Start Date"}
         value={projectDetails?.startDate}
-        handleChange={handleChange}
+        onChange={handleChange}
         type="date"
       />
 
@@ -87,7 +88,7 @@ const ProjectDetails = () => {
         name={"endDate"}
         label={"End Date"}
         value={projectDetails?.endDate}
-        handleChange={handleChange}
+        onChange={handleChange}
         type="date"
       />
 
@@ -95,7 +96,7 @@ const ProjectDetails = () => {
         name={"projectManager"}
         label={"Project Manager"}
         value={projectDetails?.projectManager}
-        handleChange={handleChange}
+        onChange={handleChange}
       />
 
       <Footer>

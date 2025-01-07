@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CustomTable from "../../components/table";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../utils/routes";
 import { fetchProjectList } from "../../api/productApi";
+import { Project } from "../../api/type";
 
 const ProjectList = () => {
-  const [projectList, setProjectList] = useState([]);
+  const [projectList, setProjectList] = useState<Project[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const ProjectList = () => {
     { id: "projectManager", label: "Project Manager" },
   ];
 
-  const handleEdit = (projectId) => {
+  const handleEdit = (projectId: string) => {
     navigate(`${routes.projectDetails}/${projectId}`);
   };
 
