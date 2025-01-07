@@ -14,6 +14,7 @@ const CustomInput = ({ name, label, value, onChange, ...props }: Props) => {
         value={value}
         onChange={onChange}
         size="small"
+        slotProps={{ htmlInput: { "data-testid": name } }}
         {...props}
       />
     </InputWrapper>
