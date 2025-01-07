@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Divider } from "@mui/material";
 
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { routes } from "../../utils/routes";
+import { routes } from "../../utils/constants/routes";
 import Sidebar from "../../components/sidebar";
 import { SnackbarProvider } from "../../context/SnackbarContext";
 import { Container, Content } from "./style";

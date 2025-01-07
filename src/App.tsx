@@ -3,7 +3,7 @@ import "./App.css";
 import Layout from "./pages/Layout";
 import ProjectList from "./pages/ProjectList";
 import ProjectDetails from "./pages/ProjectDetails";
-import { routes } from "./utils/routes";
+import { routes } from "./utils/constants/routes";
 
 function App() {
   return (

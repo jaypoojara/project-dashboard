@@ -8,7 +8,7 @@ import {
 import CustomButton from "../../components/button";
 import CustomInput from "../../components/input";
 import { useSnackbar } from "../../context/SnackbarContext";
-import { routes } from "../../utils/routes";
+import { routes } from "../../utils/constants/routes";
 import { Container, DescriptionBox, Footer } from "./style";
 import { Project } from "../../api/type";
 import { useProjectContext } from "../../context/ProjectContext";
@@ -20,7 +20,7 @@ const ProjectDetails = () => {
   const { showSnackbar } = useSnackbar();
   const { fetchProjects } = useProjectContext();
 
-  const getProductDetailsById = (id) => {
+  const getProductDetailsById = (id: string) => {
     fetchProjectDetails(id)
       .then((data) => setProjectDetails(data))
       .catch((error) =>
@@ -30,7 +30,6 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     id && getProductDetailsById(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateProductDetails = () => {
@@ -47,7 +46,9 @@ const ProjectDetails = () => {
       .catch((error) => showSnackbar("Error updating project:", error));
   };
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
     const { value, name } = e?.target;
     setProjectDetails((prev) => ({
       ...prev,

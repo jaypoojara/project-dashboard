@@ -3,10 +3,10 @@ import { Project } from "../api/type";
 import React = require("react");
 import { fetchProjectList } from "../api/productApi";
 
-interface ProjectContextType {
+type ProjectContextType = {
   projectList: Project[];
   fetchProjects: () => void;
-}
+};
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
 

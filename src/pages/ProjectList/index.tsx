@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react";
 import CustomTable from "../../components/table";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { routes } from "../../utils/routes";
-import { fetchProjectList } from "../../api/productApi";
-import { Project } from "../../api/type";
+import { routes } from "../../utils/constants/routes";
 import { useProjectContext } from "../../context/ProjectContext";
 
 const ProjectList = () => {
