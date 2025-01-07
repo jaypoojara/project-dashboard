@@ -4,17 +4,17 @@
       "id": "project_a",
       "projectName": "Project A",
       "startDate": "2025-01-01",
-      "endDate": "2025-12-31",
-      "projectManager": "John Doe",
+      "endDate": "2025-12-02",
+      "projectManager": "John Dow",
       "isFavourite": true,
       "description": "asdad"
     },
     {
       "id": "project_b",
-      "projectName": "Project B12",
+      "projectName": "Project B",
       "startDate": "2025-01-07",
       "endDate": "2025-12-22",
-      "projectManager": "John Do",
+      "projectManager": "John Doe",
       "isFavourite": true
     },
     {

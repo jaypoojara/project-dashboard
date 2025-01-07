@@ -5,8 +5,8 @@ import {
   fetchProjectDetails,
   updateProjectDetails,
 } from "../../api/productApi";
-import CustomButton from "../../components/button";
-import CustomInput from "../../components/input";
+import Button from "../../components/button";
+import Input from "../../components/input";
 import { useSnackbar } from "../../context/SnackbarContext";
 import { routes } from "../../utils/constants/routes";
 import { Container, DescriptionBox, Footer } from "./style";
@@ -67,14 +67,14 @@ const ProjectDetails = () => {
         </Typography>
         <Typography>{projectDetails?.id}</Typography>
       </Box>
-      <CustomInput
+      <Input
         name="projectName"
         label={"Project Name"}
         value={projectDetails?.projectName}
         onChange={handleChange}
       />
       <DescriptionBox>
-        <CustomInput
+        <Input
           label={"Description"}
           name="description"
           value={projectDetails?.description}
@@ -83,7 +83,7 @@ const ProjectDetails = () => {
           rows={8}
         />
       </DescriptionBox>
-      <CustomInput
+      <Input
         name={"startDate"}
         label={"Start Date"}
         value={projectDetails?.startDate}
@@ -91,7 +91,7 @@ const ProjectDetails = () => {
         type="date"
       />
 
-      <CustomInput
+      <Input
         name={"endDate"}
         label={"End Date"}
         value={projectDetails?.endDate}
@@ -99,7 +99,7 @@ const ProjectDetails = () => {
         type="date"
       />
 
-      <CustomInput
+      <Input
         name={"projectManager"}
         label={"Project Manager"}
         value={projectDetails?.projectManager}
@@ -107,7 +107,7 @@ const ProjectDetails = () => {
       />
 
       <Footer>
-        <CustomButton
+        <Button
           label={"Update"}
           variant="contained"
           onClick={updateProductDetails}

@@ -13,7 +13,7 @@ const Layout = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === "/") navigate(routes.projectList);
+    if (location.pathname === routes.home) navigate(routes.projectList);
   }, [location]);
 
   return (

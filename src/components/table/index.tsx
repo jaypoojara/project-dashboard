@@ -4,7 +4,7 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import CustomButton from "../button";
+import Button from "../button";
 import { TableWrapper } from "./style";
 import { Project } from "../../api/type";
 
@@ -41,7 +41,7 @@ const CustomTable = ({ rows, columns, handleEdit }: Props) => {
                 <TableCell key={column?.id}>{row[column?.id]}</TableCell>
               ))}
               <TableCell>
-                <CustomButton
+                <Button
                   label="Edit"
                   variant="contained"
                   onClick={() => handleEdit(row?.id)}

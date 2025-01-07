@@ -4,7 +4,7 @@ import { ButtonWrapper } from "./style";
 type Props = ButtonProps & {
   label: string;
 };
-const CustomButton = ({ variant, label, onClick, ...props }: Props) => {
+const Button = ({ variant, label, onClick, ...props }: Props) => {
   return (
     <ButtonWrapper variant={variant} onClick={onClick} {...props}>
       {label}
@@ -12,4 +12,4 @@ const CustomButton = ({ variant, label, onClick, ...props }: Props) => {
   );
 };
 
-export default CustomButton;
+export default Button;
