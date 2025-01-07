@@ -7,9 +7,9 @@ This project is a simple dashboard for managing projects. It uses React, TypeScr
 ## Scripts
 
 - `npm install`: Installing dependencies
+- `npm run start-api`: Starts the JSON Server for the backend
 - `npm run dev`: Starts the development server with hot reloading and opens the browser
 - `npm run test`: Testing the components
-- `npm run start-api`: Starts the JSON Server for the backend
 - `npm run build`: Builds the project for production
 - `npm run start-build`: Starts the production server
 
