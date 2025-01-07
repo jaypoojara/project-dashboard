@@ -6,6 +6,7 @@ import { routes } from "../../utils/routes";
 import Sidebar from "../../components/sidebar";
 import { SnackbarProvider } from "../../context/SnackbarContext";
 import { Container, Content } from "./style";
+import { ProjectProvider } from "../../context/ProjectContext";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -17,16 +18,18 @@ const Layout = () => {
 
   return (
     <SnackbarProvider>
-      <Container>
-        <Sidebar />
-        <Divider
-          orientation="vertical"
-          sx={{ height: "100vh", borderWidth: "1px" }}
-        />
-        <Content>
-          <Outlet />
-        </Content>
-      </Container>
+      <ProjectProvider>
+        <Container>
+          <Sidebar />
+          <Divider
+            orientation="vertical"
+            sx={{ height: "100vh", borderWidth: "1px" }}
+          />
+          <Content>
+            <Outlet />
+          </Content>
+        </Container>
+      </ProjectProvider>
     </SnackbarProvider>
   );
 };

@@ -11,12 +11,14 @@ import { useSnackbar } from "../../context/SnackbarContext";
 import { routes } from "../../utils/routes";
 import { Container, DescriptionBox, Footer } from "./style";
 import { Project } from "../../api/type";
+import { useProjectContext } from "../../context/ProjectContext";
 
 const ProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState<Project>();
   const { id } = useParams();
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
+  const { fetchProjects } = useProjectContext();
 
   const getProductDetailsById = (id) => {
     fetchProjectDetails(id)
@@ -39,6 +41,7 @@ const ProjectDetails = () => {
     updateProjectDetails(id, projectDetails)
       .then(() => {
         showSnackbar("Details updated successfully", "success");
+        fetchProjects();
         navigate(`${routes.projectList}`);
       })
       .catch((error) => showSnackbar("Error updating project:", error));

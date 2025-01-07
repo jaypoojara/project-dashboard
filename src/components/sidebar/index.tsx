@@ -1,18 +1,9 @@
-import { useEffect, useState } from "react";
 import { List, ListItem, ListItemText, Typography } from "@mui/material";
-import { fetchProjectList } from "../../api/productApi";
-import { useLocation } from "react-router-dom";
 import { Wrapper } from "./style";
+import { useProjectContext } from "../../context/ProjectContext";
 
 const Sidebar = () => {
-  const [projectList, setProjectList] = useState([]);
-  const location = useLocation();
-
-  useEffect(() => {
-    fetchProjectList()
-      .then((data) => setProjectList(data))
-      .catch((error) => console.error("Error fetching project list:", error));
-  }, [location]);
+  const { projectList } = useProjectContext();
 
   return (
     <Wrapper>

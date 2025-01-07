@@ -5,17 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { routes } from "../../utils/routes";
 import { fetchProjectList } from "../../api/productApi";
 import { Project } from "../../api/type";
+import { useProjectContext } from "../../context/ProjectContext";
 
 const ProjectList = () => {
-  const [projectList, setProjectList] = useState<Project[]>([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetchProjectList()
-      .then((data) => setProjectList(data))
-      .catch((error) => console.error("Error fetching project list:", error));
-  }, []);
-
+  const { projectList } = useProjectContext();
   const columns = [
     { id: "id", label: "Project ID" },
     { id: "projectName", label: "Project Name", width: "250px" },
