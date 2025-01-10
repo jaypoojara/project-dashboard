@@ -5,7 +5,7 @@ import { useSnackbar } from "./SnackbarContext";
 
 type ProjectContextType = {
   projectList: Project[];
-  fetchProjects: () => void;
+  fetchProjects: () => Promise<void>;
   handleAddToFavourite: (id: string) => void;
   isLoading: boolean;
 };
@@ -36,10 +36,14 @@ export const ProjectProvider = ({
   const handleAddToFavourite = async (id: string) => {
     const project = projectList?.find((project) => project?.id === id);
     try {
-      await updateProjectDetails(id, {
-        ...project,
-        isFavourite: !project?.isFavourite,
-      });
+      await updateProjectDetails(
+        id,
+        {
+          ...project,
+          isFavourite: !project?.isFavourite,
+        },
+        1
+      );
       showSnackbar("Added to Favourite", "success");
       fetchProjects();
     } catch (error) {

@@ -20,13 +20,14 @@ export const fetchProjectDetails = async (id: string): Promise<Project> => {
 
 export const updateProjectDetails = async (
   id: string,
-  projectData: Project
+  projectData: Project,
+  delayTime?: number
 ): Promise<Project> => {
   const response: AxiosResponse<Project> = await axios.patch(
     `${API_BASE_URL}/${id}`,
     projectData
   );
-  await delay(2000);
+  await delay(delayTime || 2000);
   return response.data;
 };
 

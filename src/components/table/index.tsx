@@ -78,7 +78,7 @@ const CustomTable = ({
                       data-testid={`bookmark-icon-${row?.id}`}
                     >
                       <BookmarkSvgIcon
-                        fillColor={row.isFavourite ? "magenta" : undefined}
+                        fillColor={row.isFavourite ? "magenta" : ""}
                       />
                     </Box>
                     <Button

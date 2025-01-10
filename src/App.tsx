@@ -15,11 +15,11 @@ function App() {
             <Route path={routes.projectList} element={<ProjectList />} />
             <Route path={routes.projectCreate} element={<ProjectCreate />} />
             <Route
-              path={`${routes.projectDetails}/:id`}
+              path={`${routes.projectDetails}/:projectId`}
               element={<ProjectDetails />}
             />
             <Route
-              path={`${routes.projectDetails}/:id/edit`}
+              path={`${routes.projectDetails}/:projectId/edit`}
               element={<ProjectEdit />}
             />
           </Route>

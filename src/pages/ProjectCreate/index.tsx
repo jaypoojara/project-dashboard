@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createProject } from "../../api/productApi";
 import Button from "../../components/button";
@@ -25,8 +25,6 @@ const ProjectCreate = () => {
     initialProjectDetails
   );
   const [isLoading, setIsLoading] = useState(false);
-  const { fetchProjects } = useProjectContext();
-
   const [errors, setErrors] = useState({
     id: false,
     projectName: false,
@@ -36,6 +34,7 @@ const ProjectCreate = () => {
     projectManager: false,
   });
 
+  const { fetchProjects } = useProjectContext();
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
 
@@ -68,13 +67,13 @@ const ProjectCreate = () => {
     try {
       await createProject(projectDetails);
       setProjectDetails(initialProjectDetails);
-      setIsLoading(false);
-      fetchProjects();
+      await fetchProjects();
       showSnackbar("Project created successfully", "success");
       navigate(`${routes.projectList}`);
     } catch (error) {
-      setIsLoading(false);
       showSnackbar("Error creating project", "error");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -102,7 +101,7 @@ const ProjectCreate = () => {
         onChange={handleChange}
         error={errors.id}
         helperText={errors.id ? "Project ID is required" : ""}
-        inputProps={{ "data-testid": "id" }}
+        slotProps={{ htmlInput: { "data-testid": "id" } }}
       />
       <Input
         name="projectName"
@@ -111,7 +110,7 @@ const ProjectCreate = () => {
         onChange={handleChange}
         error={errors.projectName}
         helperText={errors.projectName ? "Project Name is required" : ""}
-        inputProps={{ "data-testid": "projectName" }}
+        slotProps={{ htmlInput: { "data-testid": "projectName" } }}
       />
       <DescriptionBox>
         <TextArea
@@ -131,7 +130,7 @@ const ProjectCreate = () => {
         type="date"
         error={errors.startDate}
         helperText={errors.startDate ? "Start Date is required" : ""}
-        inputProps={{ "data-testid": "startDate" }}
+        slotProps={{ htmlInput: { "data-testid": "startDate" } }}
       />
 
       <Input
@@ -142,7 +141,7 @@ const ProjectCreate = () => {
         type="date"
         error={errors.endDate}
         helperText={errors.endDate ? "End Date is required" : ""}
-        inputProps={{ "data-testid": "endDate" }}
+        slotProps={{ htmlInput: { "data-testid": "endDate" } }}
       />
 
       <Input
@@ -152,7 +151,7 @@ const ProjectCreate = () => {
         onChange={handleChange}
         error={errors.projectManager}
         helperText={errors.projectManager ? "Project Manager is required" : ""}
-        inputProps={{ "data-testid": "projectManager" }}
+        slotProps={{ htmlInput: { "data-testid": "projectManager" } }}
       />
 
       <Footer>

@@ -17,7 +17,7 @@ import { Container, DescriptionBox, Footer } from "./style";
 const ProjectEdit = () => {
   const [projectDetails, setProjectDetails] = useState<Project>();
   const [isLoading, setIsLoading] = useState(false);
-  const { id } = useParams();
+  const { projectId } = useParams();
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
   const { fetchProjects } = useProjectContext();
@@ -32,7 +32,7 @@ const ProjectEdit = () => {
   };
 
   useEffect(() => {
-    id && getProductDetailsById(id);
+    projectId && getProductDetailsById(projectId);
   }, []);
 
   const updateProductDetails = async () => {
@@ -42,14 +42,14 @@ const ProjectEdit = () => {
     }
     setIsLoading(true);
     try {
-      await updateProjectDetails(id, projectDetails);
+      await updateProjectDetails(projectId, projectDetails);
       showSnackbar("Details updated successfully", "success");
-      setIsLoading(false);
-      fetchProjects();
+      await fetchProjects();
       navigate(`${routes.projectList}`);
     } catch (error) {
-      setIsLoading(false);
       showSnackbar("Error updating project:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

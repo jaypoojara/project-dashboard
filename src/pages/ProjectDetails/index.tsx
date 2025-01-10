@@ -14,7 +14,7 @@ const ProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState<Project>();
   const { projectList, handleAddToFavourite } = useProjectContext();
   const { showSnackbar } = useSnackbar();
-  const { id } = useParams();
+  const { projectId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,7 +28,7 @@ const ProjectDetails = () => {
   };
 
   useEffect(() => {
-    id && getProductDetailsById(id);
+    projectId && getProductDetailsById(projectId);
   }, [location, projectList]);
 
   const handleNavigation = () => {

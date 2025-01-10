@@ -7,7 +7,7 @@ import { fetchProjectDetails } from "../../api/productApi";
 import { routes } from "../../utils/constants/routes";
 
 const mockNavigate = jest.fn();
-const mockUseParams = jest.fn().mockReturnValue({ id: "project_a" });
+const mockUseParams = jest.fn().mockReturnValue({ projectId: "project_a" });
 const mockUseLocation = jest
   .fn()
   .mockReturnValue({ pathname: "/projects/project_a" });

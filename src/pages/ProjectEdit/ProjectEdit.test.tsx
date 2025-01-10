@@ -29,7 +29,7 @@ describe("ProjectDetails", () => {
 
   beforeEach(() => {
     (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
-    (useParams as jest.Mock).mockReturnValue({ id: "1" });
+    (useParams as jest.Mock).mockReturnValue({ projectId: "1" });
     (useSnackbar as jest.Mock).mockReturnValue({
       showSnackbar: mockShowSnackbar,
     });
