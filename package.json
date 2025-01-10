@@ -10,7 +10,8 @@
     "prod": "webpack --mode production",
     "start-api": "json-server --watch ./database/project-list.json --port 3500",
     "start-build": "serve -s build",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",

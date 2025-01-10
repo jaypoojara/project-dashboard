@@ -99,6 +99,7 @@ const ProjectCreate = () => {
         onChange={handleChange}
         error={errors.id}
         helperText={errors.id ? "Project ID is required" : ""}
+        inputProps={{ "data-testid": "id" }}
       />
       <Input
         name="projectName"
@@ -107,6 +108,7 @@ const ProjectCreate = () => {
         onChange={handleChange}
         error={errors.projectName}
         helperText={errors.projectName ? "Project Name is required" : ""}
+        inputProps={{ "data-testid": "projectName" }}
       />
       <DescriptionBox>
         <TextArea
@@ -115,6 +117,7 @@ const ProjectCreate = () => {
           value={projectDetails?.description}
           onChange={handleChange}
           minRows={10}
+          data-testid="description"
         />
       </DescriptionBox>
       <Input
@@ -125,6 +128,7 @@ const ProjectCreate = () => {
         type="date"
         error={errors.startDate}
         helperText={errors.startDate ? "Start Date is required" : ""}
+        inputProps={{ "data-testid": "startDate" }}
       />
 
       <Input
@@ -135,6 +139,7 @@ const ProjectCreate = () => {
         type="date"
         error={errors.endDate}
         helperText={errors.endDate ? "End Date is required" : ""}
+        inputProps={{ "data-testid": "endDate" }}
       />
 
       <Input
@@ -144,6 +149,7 @@ const ProjectCreate = () => {
         onChange={handleChange}
         error={errors.projectManager}
         helperText={errors.projectManager ? "Project Manager is required" : ""}
+        inputProps={{ "data-testid": "projectManager" }}
       />
 
       <Footer>

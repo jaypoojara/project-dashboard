@@ -9,7 +9,6 @@ import { useSnackbar } from "../../context/SnackbarContext";
 import ProjectDetails from ".";
 import { ProjectProvider } from "../../context/ProjectContext";
 
-// Mock dependencies
 jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
   useParams: jest.fn(),
@@ -29,14 +28,12 @@ describe("ProjectDetails", () => {
   const mockShowSnackbar = jest.fn();
 
   beforeEach(() => {
-    // Mock hooks
     (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
     (useParams as jest.Mock).mockReturnValue({ id: "1" });
     (useSnackbar as jest.Mock).mockReturnValue({
       showSnackbar: mockShowSnackbar,
     });
 
-    // Mock API responses
     (fetchProjectDetails as jest.Mock).mockResolvedValue({
       id: "1",
       projectName: "Test Project",
@@ -111,7 +108,7 @@ describe("ProjectDetails", () => {
         "Details updated successfully",
         "success"
       );
-      expect(mockNavigate).toHaveBeenCalledWith("/project-list");
+      expect(mockNavigate).toHaveBeenCalledWith("/projects");
     });
   });
 

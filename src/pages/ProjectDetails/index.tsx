@@ -37,7 +37,10 @@ const ProjectDetails = () => {
 
   return (
     <Container>
-      <SvgWrapper onClick={() => handleAddToFavourite(projectDetails?.id)}>
+      <SvgWrapper
+        data-testid="bookmark-icon"
+        onClick={() => handleAddToFavourite(projectDetails?.id)}
+      >
         <BookmarkSvgIcon
           fillColor={projectDetails?.isFavourite ? "magenta" : ""}
         />

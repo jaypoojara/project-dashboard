@@ -59,6 +59,7 @@ const CustomTable = ({
                   <Box
                     sx={{ cursor: "pointer" }}
                     onClick={() => handleAddToFavourite(row?.id)}
+                    data-testid={`bookmark-icon-${row?.id}`}
                   >
                     <BookmarkSvgIcon fillColor={row.isFavourite && "magenta"} />
                   </Box>
