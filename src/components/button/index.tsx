@@ -1,7 +1,7 @@
-import { ButtonProps } from "@mui/material";
 import { ButtonWrapper } from "./style";
+import { LoadingButtonProps } from "@mui/lab";
 
-type Props = ButtonProps & {
+type Props = LoadingButtonProps & {
   label: string;
 };
 const Button = ({ variant, label, onClick, ...props }: Props) => {

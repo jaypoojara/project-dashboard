@@ -16,6 +16,7 @@ import { Container, DescriptionBox, Footer } from "./style";
 
 const ProjectEdit = () => {
   const [projectDetails, setProjectDetails] = useState<Project>();
+  const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
@@ -39,13 +40,15 @@ const ProjectEdit = () => {
       showSnackbar("Please choose appropriate dates", "error");
       return;
     }
-
+    setIsLoading(true);
     try {
       await updateProjectDetails(id, projectDetails);
       showSnackbar("Details updated successfully", "success");
+      setIsLoading(false);
       fetchProjects();
       navigate(`${routes.projectList}`);
     } catch (error) {
+      setIsLoading(false);
       showSnackbar("Error updating project:", error);
     }
   };
@@ -111,6 +114,7 @@ const ProjectEdit = () => {
           label={"Update"}
           variant="contained"
           onClick={updateProductDetails}
+          loading={isLoading}
         />
       </Footer>
     </Container>

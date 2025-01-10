@@ -8,7 +8,7 @@ import { ListContainer } from "./style";
 
 const ProjectList = () => {
   const navigate = useNavigate();
-  const { projectList, handleAddToFavourite } = useProjectContext();
+  const { projectList, handleAddToFavourite, isLoading } = useProjectContext();
 
   const handleEdit = (projectId: string, action: string) => {
     action === "edit"
@@ -29,6 +29,7 @@ const ProjectList = () => {
         rows={projectList}
         handleEdit={handleEdit}
         handleAddToFavourite={handleAddToFavourite}
+        isLoading={isLoading}
       />
     </ListContainer>
   );

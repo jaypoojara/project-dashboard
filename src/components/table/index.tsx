@@ -6,7 +6,7 @@ import TableRow from "@mui/material/TableRow";
 import Button from "../button";
 import { ActionCell, TableWrapper } from "./style";
 import { Project } from "../../api/type";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import BookmarkSvgIcon from "../../assets/svg/bookmark";
 
 type Props = {
@@ -14,6 +14,7 @@ type Props = {
   columns: { label: string; id: string; width?: string }[];
   handleEdit: (id: string, action: string) => void;
   handleAddToFavourite?: (id: string) => void;
+  isLoading?: boolean;
 };
 
 const CustomTable = ({
@@ -21,6 +22,7 @@ const CustomTable = ({
   columns,
   handleEdit,
   handleAddToFavourite,
+  isLoading,
 }: Props) => {
   return (
     <TableWrapper>
@@ -36,42 +38,59 @@ const CustomTable = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows?.map((row) => (
-            <TableRow
-              key={row?.id}
-              className="bg-gray-100"
-              sx={{
-                borderBottom: "1px solid",
-              }}
-            >
-              {columns?.map((column) => (
-                <TableCell
-                  key={column?.id}
-                  onClick={() =>
-                    column.id === "id" && handleEdit(row?.id, "details")
-                  }
+          {isLoading ? (
+            <TableRow>
+              <TableCell colSpan={columns.length + 1}>
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  sx={{ height: 200, width: "100%" }}
                 >
-                  {row[column?.id]}
-                </TableCell>
-              ))}
-              <TableCell>
-                <ActionCell>
-                  <Box
-                    sx={{ cursor: "pointer" }}
-                    onClick={() => handleAddToFavourite(row?.id)}
-                    data-testid={`bookmark-icon-${row?.id}`}
-                  >
-                    <BookmarkSvgIcon fillColor={row.isFavourite && "magenta"} />
-                  </Box>
-                  <Button
-                    label="Edit"
-                    variant="contained"
-                    onClick={() => handleEdit(row?.id, "edit")}
-                  />
-                </ActionCell>
+                  <CircularProgress />
+                </Box>
               </TableCell>
             </TableRow>
-          ))}
+          ) : (
+            rows?.map((row) => (
+              <TableRow
+                key={row?.id}
+                className="bg-gray-100"
+                sx={{
+                  borderBottom: "1px solid",
+                }}
+              >
+                {columns?.map((column) => (
+                  <TableCell
+                    key={column?.id}
+                    onClick={() =>
+                      column.id === "id" && handleEdit(row?.id, "details")
+                    }
+                  >
+                    {row[column?.id]}
+                  </TableCell>
+                ))}
+                <TableCell>
+                  <ActionCell>
+                    <Box
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => handleAddToFavourite?.(row?.id)}
+                      data-testid={`bookmark-icon-${row?.id}`}
+                    >
+                      <BookmarkSvgIcon
+                        fillColor={row.isFavourite ? "magenta" : undefined}
+                      />
+                    </Box>
+                    <Button
+                      label="Edit"
+                      variant="contained"
+                      onClick={() => handleEdit(row?.id, "edit")}
+                    />
+                  </ActionCell>
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
     </TableWrapper>

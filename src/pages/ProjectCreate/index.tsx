@@ -24,6 +24,7 @@ const ProjectCreate = () => {
   const [projectDetails, setProjectDetails] = useState<Project>(
     initialProjectDetails
   );
+  const [isLoading, setIsLoading] = useState(false);
   const { fetchProjects } = useProjectContext();
 
   const [errors, setErrors] = useState({
@@ -63,14 +64,16 @@ const ProjectCreate = () => {
       showSnackbar("Please choose appropriate dates", "error");
       return;
     }
-
+    setIsLoading(true);
     try {
       await createProject(projectDetails);
       setProjectDetails(initialProjectDetails);
+      setIsLoading(false);
       fetchProjects();
       showSnackbar("Project created successfully", "success");
       navigate(`${routes.projectList}`);
     } catch (error) {
+      setIsLoading(false);
       showSnackbar("Error creating project", "error");
     }
   };
@@ -157,6 +160,7 @@ const ProjectCreate = () => {
           label={"Create"}
           variant="contained"
           onClick={createNewProject}
+          loading={isLoading}
         />
       </Footer>
     </Container>

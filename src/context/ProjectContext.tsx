@@ -7,6 +7,7 @@ type ProjectContextType = {
   projectList: Project[];
   fetchProjects: () => void;
   handleAddToFavourite: (id: string) => void;
+  isLoading: boolean;
 };
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -18,12 +19,16 @@ export const ProjectProvider = ({
 }) => {
   const [projectList, setProjectList] = useState<Project[]>([]);
   const { showSnackbar } = useSnackbar();
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchProjects = async () => {
+    setIsLoading(true);
     try {
       const data = await fetchProjectList();
+      setIsLoading(false);
       setProjectList(data);
     } catch (error) {
+      setIsLoading(false);
       showSnackbar("Error fetching project list", "error");
     }
   };
@@ -48,7 +53,7 @@ export const ProjectProvider = ({
 
   return (
     <ProjectContext.Provider
-      value={{ projectList, fetchProjects, handleAddToFavourite }}
+      value={{ projectList, fetchProjects, handleAddToFavourite, isLoading }}
     >
       {children}
     </ProjectContext.Provider>
