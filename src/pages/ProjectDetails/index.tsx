@@ -1,24 +1,22 @@
-import { Box, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import {
-  fetchProjectDetails,
-  updateProjectDetails,
-} from "../../api/productApi";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { fetchProjectDetails } from "../../api/productApi";
 import Button from "../../components/button";
-import Input from "../../components/input";
 import { useSnackbar } from "../../context/SnackbarContext";
 import { routes } from "../../utils/constants/routes";
-import { Container, DescriptionBox, Footer } from "./style";
+import { Container, Footer, SvgWrapper } from "./style";
 import { Project } from "../../api/type";
+import ListItem from "./ListItem";
+import BookmarkSvgIcon from "../../assets/svg/bookmark";
 import { useProjectContext } from "../../context/ProjectContext";
 
 const ProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState<Project>();
+  const { projectList, handleAddToFavourite } = useProjectContext();
+  const { showSnackbar } = useSnackbar();
   const { id } = useParams();
   const navigate = useNavigate();
-  const { showSnackbar } = useSnackbar();
-  const { fetchProjects } = useProjectContext();
+  const location = useLocation();
 
   const getProductDetailsById = async (id: string) => {
     try {
@@ -31,87 +29,36 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     id && getProductDetailsById(id);
-  }, []);
+  }, [location, projectList]);
 
-  const updateProductDetails = async () => {
-    if (projectDetails.endDate < projectDetails.startDate) {
-      showSnackbar("Please choose appropriate dates", "error");
-      return;
-    }
-
-    try {
-      await updateProjectDetails(id, projectDetails);
-      showSnackbar("Details updated successfully", "success");
-      fetchProjects();
-      navigate(`${routes.projectList}`);
-    } catch (error) {
-      showSnackbar("Error updating project:", error);
-    }
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    const { value, name } = e?.target;
-    setProjectDetails((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handleNavigation = () => {
+    navigate(`${routes.projectDetails}/${projectDetails?.id}/edit`);
   };
 
   return (
     <Container>
-      <Box display={"flex"} gap={"16px"}>
-        <Typography width={150} textAlign={"end"}>
-          Project ID
-        </Typography>
-        <Typography>{projectDetails?.id}</Typography>
-      </Box>
-      <Input
-        name="projectName"
-        label={"Project Name"}
-        value={projectDetails?.projectName}
-        onChange={handleChange}
-      />
-      <DescriptionBox>
-        <Input
-          label={"Description"}
-          name="description"
-          value={projectDetails?.description}
-          onChange={handleChange}
-          multiline
-          rows={8}
+      <SvgWrapper onClick={() => handleAddToFavourite(projectDetails?.id)}>
+        <BookmarkSvgIcon
+          fillColor={projectDetails?.isFavourite ? "magenta" : ""}
         />
-      </DescriptionBox>
-      <Input
-        name={"startDate"}
-        label={"Start Date"}
-        value={projectDetails?.startDate}
-        onChange={handleChange}
-        type="date"
-      />
-
-      <Input
-        name={"endDate"}
-        label={"End Date"}
-        value={projectDetails?.endDate}
-        onChange={handleChange}
-        type="date"
-      />
-
-      <Input
-        name={"projectManager"}
-        label={"Project Manager"}
+      </SvgWrapper>
+      <ListItem title={"Project ID"} value={projectDetails?.id} />
+      <ListItem title={"Project Name"} value={projectDetails?.projectName} />
+      <ListItem title={"Description"} value={projectDetails?.description} />
+      <ListItem title={"Start Date"} value={projectDetails?.startDate} />
+      <ListItem title={"End Date"} value={projectDetails?.endDate} />
+      <ListItem
+        title={"Project Manager"}
         value={projectDetails?.projectManager}
-        onChange={handleChange}
       />
 
       <Footer>
         <Button
-          label={"Update"}
+          label={"Back"}
           variant="contained"
-          onClick={updateProductDetails}
+          onClick={() => navigate(routes.projectList)}
         />
+        <Button label={"Edit"} variant="contained" onClick={handleNavigation} />
       </Footer>
     </Container>
   );

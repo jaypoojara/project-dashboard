@@ -1,26 +1,36 @@
 import CustomTable from "../../components/table";
-import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../utils/constants/routes";
 import { useProjectContext } from "../../context/ProjectContext";
 import { projectListColumns } from "./constant";
+import Button from "../../components/button";
+import { ListContainer } from "./style";
 
 const ProjectList = () => {
   const navigate = useNavigate();
-  const { projectList } = useProjectContext();
+  const { projectList, handleAddToFavourite } = useProjectContext();
 
-  const handleEdit = (projectId: string) => {
-    navigate(`${routes.projectDetails}/${projectId}`);
+  const handleEdit = (projectId: string, action: string) => {
+    action === "edit"
+      ? navigate(`${routes.projectDetails}/${projectId}/edit`)
+      : navigate(`${routes.projectDetails}/${projectId}`);
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <ListContainer>
+      <Button
+        label={"Create Project"}
+        variant="contained"
+        style={{ alignSelf: "flex-end" }}
+        onClick={() => navigate(`${routes.projectCreate}`)}
+      />
       <CustomTable
         columns={projectListColumns}
         rows={projectList}
         handleEdit={handleEdit}
+        handleAddToFavourite={handleAddToFavourite}
       />
-    </Box>
+    </ListContainer>
   );
 };
 

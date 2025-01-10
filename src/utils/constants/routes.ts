@@ -1,5 +1,6 @@
 export const routes = {
   home: "/",
-  projectList: "/project-list",
-  projectDetails: "/project-details",
+  projectList: "/projects",
+  projectDetails: "/projects",
+  projectCreate: "/projects/new",
 };

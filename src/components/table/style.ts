@@ -1,4 +1,4 @@
-import { styled, TableContainer } from "@mui/material";
+import { Box, styled, TableContainer } from "@mui/material";
 
 const TableWrapper = styled(TableContainer)({
   "& .MuiTableRow-head": {
@@ -15,4 +15,10 @@ const TableWrapper = styled(TableContainer)({
   },
 });
 
-export { TableWrapper };
+const ActionCell = styled(Box)({
+  display: "flex",
+  gap: "8px",
+  alignItems: "center",
+});
+
+export { TableWrapper, ActionCell };

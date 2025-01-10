@@ -14,6 +14,7 @@ describe("CustomTable", () => {
       endDate: "2023-12-31",
       projectManager: "John Doe",
       isFavourite: true,
+      description: "",
     },
     {
       id: "2",
@@ -22,6 +23,7 @@ describe("CustomTable", () => {
       endDate: "2023-10-15",
       projectManager: "Jane Smith",
       isFavourite: false,
+      description: "",
     },
   ];
 

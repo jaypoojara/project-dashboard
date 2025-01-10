@@ -1,11 +1,12 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import { Project } from "../api/type";
-import { fetchProjectList } from "../api/productApi";
+import { fetchProjectList, updateProjectDetails } from "../api/productApi";
 import { useSnackbar } from "./SnackbarContext";
 
 type ProjectContextType = {
   projectList: Project[];
   fetchProjects: () => void;
+  handleAddToFavourite: (id: string) => void;
 };
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -27,12 +28,28 @@ export const ProjectProvider = ({
     }
   };
 
+  const handleAddToFavourite = async (id: string) => {
+    const project = projectList?.find((project) => project?.id === id);
+    try {
+      await updateProjectDetails(id, {
+        ...project,
+        isFavourite: !project?.isFavourite,
+      });
+      showSnackbar("Added to Favourite", "success");
+      fetchProjects();
+    } catch (error) {
+      showSnackbar("Error adding to favourite", error);
+    }
+  };
+
   useEffect(() => {
     fetchProjects();
   }, []);
 
   return (
-    <ProjectContext.Provider value={{ projectList, fetchProjects }}>
+    <ProjectContext.Provider
+      value={{ projectList, fetchProjects, handleAddToFavourite }}
+    >
       {children}
     </ProjectContext.Provider>
   );

@@ -25,3 +25,11 @@ export const updateProjectDetails = async (
   );
   return response.data;
 };
+
+export const createProject = async (projectData: Project): Promise<Project> => {
+  const response: AxiosResponse<Project> = await axios.post(
+    API_BASE_URL,
+    projectData
+  );
+  return response.data;
+};

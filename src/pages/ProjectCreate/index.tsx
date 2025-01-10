@@ -1,0 +1,160 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createProject } from "../../api/productApi";
+import Button from "../../components/button";
+import Input from "../../components/input";
+import { useSnackbar } from "../../context/SnackbarContext";
+import { routes } from "../../utils/constants/routes";
+import { Project } from "../../api/type";
+import TextArea from "../../components/textarea";
+import { Container, DescriptionBox, Footer } from "./style";
+import { useProjectContext } from "../../context/ProjectContext";
+
+const initialProjectDetails: Project = {
+  id: "",
+  projectName: "",
+  startDate: "",
+  endDate: "",
+  projectManager: "",
+  description: "",
+  isFavourite: false,
+};
+
+const ProjectCreate = () => {
+  const [projectDetails, setProjectDetails] = useState<Project>(
+    initialProjectDetails
+  );
+  const { fetchProjects } = useProjectContext();
+
+  const [errors, setErrors] = useState({
+    id: false,
+    projectName: false,
+    description: false,
+    startDate: false,
+    endDate: false,
+    projectManager: false,
+  });
+
+  const navigate = useNavigate();
+  const { showSnackbar } = useSnackbar();
+
+  const validateForm = () => {
+    const newErrors = {
+      id: !projectDetails?.id?.trim(),
+      projectName: !projectDetails?.projectName?.trim(),
+      description: !projectDetails?.description?.trim(),
+      startDate: !projectDetails?.startDate?.trim(),
+      endDate: !projectDetails?.endDate?.trim(),
+      projectManager: !projectDetails?.projectManager?.trim(),
+    };
+
+    setErrors(newErrors);
+
+    return Object.values(newErrors).every((error) => !error);
+  };
+
+  const createNewProject = async () => {
+    if (!validateForm()) {
+      showSnackbar("Please fill in all required fields", "error");
+      return;
+    }
+
+    if (projectDetails.endDate < projectDetails.startDate) {
+      showSnackbar("Please choose appropriate dates", "error");
+      return;
+    }
+
+    try {
+      await createProject(projectDetails);
+      setProjectDetails(initialProjectDetails);
+      fetchProjects();
+      showSnackbar("Project created successfully", "success");
+      navigate(`${routes.projectList}`);
+    } catch (error) {
+      showSnackbar("Error creating project", "error");
+    }
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const { value, name } = e.target;
+    setProjectDetails((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: false,
+    }));
+  };
+
+  return (
+    <Container>
+      <Input
+        name="id"
+        label={"Project ID"}
+        value={projectDetails?.id}
+        onChange={handleChange}
+        error={errors.id}
+        helperText={errors.id ? "Project ID is required" : ""}
+      />
+      <Input
+        name="projectName"
+        label={"Project Name"}
+        value={projectDetails?.projectName}
+        onChange={handleChange}
+        error={errors.projectName}
+        helperText={errors.projectName ? "Project Name is required" : ""}
+      />
+      <DescriptionBox>
+        <TextArea
+          label={"Description"}
+          name="description"
+          value={projectDetails?.description}
+          onChange={handleChange}
+          minRows={10}
+        />
+      </DescriptionBox>
+      <Input
+        name="startDate"
+        label={"Start Date"}
+        value={projectDetails?.startDate}
+        onChange={handleChange}
+        type="date"
+        error={errors.startDate}
+        helperText={errors.startDate ? "Start Date is required" : ""}
+      />
+
+      <Input
+        name="endDate"
+        label={"End Date"}
+        value={projectDetails?.endDate}
+        onChange={handleChange}
+        type="date"
+        error={errors.endDate}
+        helperText={errors.endDate ? "End Date is required" : ""}
+      />
+
+      <Input
+        name="projectManager"
+        label={"Project Manager"}
+        value={projectDetails?.projectManager}
+        onChange={handleChange}
+        error={errors.projectManager}
+        helperText={errors.projectManager ? "Project Manager is required" : ""}
+      />
+
+      <Footer>
+        <Button
+          label={"Create"}
+          variant="contained"
+          onClick={createNewProject}
+        />
+      </Footer>
+    </Container>
+  );
+};
+
+export default ProjectCreate;
