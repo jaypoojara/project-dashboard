@@ -9,10 +9,12 @@ import { Project } from "../../api/type";
 import ListItem from "./ListItem";
 import BookmarkSvgIcon from "../../assets/svg/bookmark";
 import { useProjectContext } from "../../context/ProjectContext";
+import { CircularProgress } from "@mui/material";
 
 const ProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState<Project>();
-  const { projectList, handleAddToFavourite } = useProjectContext();
+  const { projectList, handleAddToFavourite, isFavoriteLoading } =
+    useProjectContext();
   const { showSnackbar } = useSnackbar();
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -39,11 +41,17 @@ const ProjectDetails = () => {
     <Container>
       <SvgWrapper
         data-testid="bookmark-icon"
-        onClick={() => handleAddToFavourite(projectDetails?.id)}
+        onClick={() =>
+          !isFavoriteLoading && handleAddToFavourite(projectDetails?.id)
+        }
       >
-        <BookmarkSvgIcon
-          fillColor={projectDetails?.isFavourite ? "magenta" : ""}
-        />
+        {isFavoriteLoading ? (
+          <CircularProgress size={20} />
+        ) : (
+          <BookmarkSvgIcon
+            fillColor={projectDetails?.isFavourite ? "magenta" : ""}
+          />
+        )}
       </SvgWrapper>
       <ListItem title={"Project ID"} value={projectDetails?.id} />
       <ListItem title={"Project Name"} value={projectDetails?.projectName} />

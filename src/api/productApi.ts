@@ -20,14 +20,24 @@ export const fetchProjectDetails = async (id: string): Promise<Project> => {
 
 export const updateProjectDetails = async (
   id: string,
-  projectData: Project,
-  delayTime?: number
+  projectData: Project
 ): Promise<Project> => {
   const response: AxiosResponse<Project> = await axios.patch(
     `${API_BASE_URL}/${id}`,
     projectData
   );
-  await delay(delayTime || 2000);
+  await delay(2000);
+  return response.data;
+};
+
+export const updateFavoriteProject = async (
+  id: string,
+  projectData: Project
+): Promise<Project> => {
+  const response: AxiosResponse<Project> = await axios.patch(
+    `${API_BASE_URL}/${id}`,
+    projectData
+  );
   return response.data;
 };
 

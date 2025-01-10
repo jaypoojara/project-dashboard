@@ -1,5 +1,5 @@
-import { List, ListItem, ListItemText, Typography } from "@mui/material";
-import { Wrapper } from "./style";
+import { List, ListItemText, Typography } from "@mui/material";
+import { ListItemWrapper, Wrapper } from "./style";
 import { useProjectContext } from "../../context/ProjectContext";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../utils/constants/routes";
@@ -19,15 +19,12 @@ const Sidebar = () => {
         {projectList
           ?.filter((i) => i?.isFavourite)
           ?.map((list) => (
-            <ListItem
-              sx={{ display: "list-item", paddingBottom: 0, paddingLeft: 0 }}
-              key={list?.id}
-            >
+            <ListItemWrapper key={list?.id}>
               <ListItemText
                 primary={list?.projectName}
                 onClick={() => handleNavigate(list?.id)}
               />
-            </ListItem>
+            </ListItemWrapper>
           ))}
       </List>
     </Wrapper>

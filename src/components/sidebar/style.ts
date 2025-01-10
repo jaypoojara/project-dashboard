@@ -1,4 +1,4 @@
-import { styled } from "@mui/material";
+import { ListItem, styled } from "@mui/material";
 
 const Wrapper = styled("div")({
   paddingTop: "64px",
@@ -24,4 +24,11 @@ const Wrapper = styled("div")({
   },
 });
 
-export { Wrapper };
+const ListItemWrapper = styled(ListItem)({
+  display: "list-item",
+  paddingBottom: 0,
+  paddingLeft: 0,
+  cursor: "pointer",
+});
+
+export { Wrapper, ListItemWrapper };

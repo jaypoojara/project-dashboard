@@ -8,7 +8,7 @@ import ProjectCreate from "./pages/ProjectCreate";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Router>
         <Routes>
           <Route path={routes.home} element={<Layout />}>

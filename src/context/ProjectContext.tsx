@@ -1,6 +1,12 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { fetchProjectList, updateFavoriteProject } from "../api/productApi";
 import { Project } from "../api/type";
-import { fetchProjectList, updateProjectDetails } from "../api/productApi";
 import { useSnackbar } from "./SnackbarContext";
 
 type ProjectContextType = {
@@ -8,6 +14,7 @@ type ProjectContextType = {
   fetchProjects: () => Promise<void>;
   handleAddToFavourite: (id: string) => void;
   isLoading: boolean;
+  isFavoriteLoading?: string;
 };
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -18,38 +25,42 @@ export const ProjectProvider = ({
   children: React.ReactNode;
 }) => {
   const [projectList, setProjectList] = useState<Project[]>([]);
-  const { showSnackbar } = useSnackbar();
   const [isLoading, setIsLoading] = useState(false);
+  const [isFavoriteLoading, setIsFavoriteLoading] = useState(undefined);
+  const { showSnackbar } = useSnackbar();
 
-  const fetchProjects = async () => {
+  const fetchProjects = useCallback(async () => {
     setIsLoading(true);
     try {
       const data = await fetchProjectList();
-      setIsLoading(false);
       setProjectList(data);
     } catch (error) {
-      setIsLoading(false);
       showSnackbar("Error fetching project list", "error");
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
-  const handleAddToFavourite = async (id: string) => {
-    const project = projectList?.find((project) => project?.id === id);
-    try {
-      await updateProjectDetails(
-        id,
-        {
+  const handleAddToFavourite = useCallback(
+    async (id: string) => {
+      const project = projectList?.find((project) => project?.id === id);
+      setIsFavoriteLoading(id);
+      try {
+        await updateFavoriteProject(id, {
           ...project,
           isFavourite: !project?.isFavourite,
-        },
-        1
-      );
-      showSnackbar("Added to Favourite", "success");
-      fetchProjects();
-    } catch (error) {
-      showSnackbar("Error adding to favourite", error);
-    }
-  };
+        });
+        const newProjectList = await fetchProjectList();
+        setProjectList(newProjectList);
+        showSnackbar("Added to Favourite", "success");
+      } catch (error) {
+        showSnackbar("Error adding to favourite", error);
+      } finally {
+        setIsFavoriteLoading(undefined);
+      }
+    },
+    [projectList]
+  );
 
   useEffect(() => {
     fetchProjects();
@@ -57,7 +68,13 @@ export const ProjectProvider = ({
 
   return (
     <ProjectContext.Provider
-      value={{ projectList, fetchProjects, handleAddToFavourite, isLoading }}
+      value={{
+        projectList,
+        fetchProjects,
+        handleAddToFavourite,
+        isLoading,
+        isFavoriteLoading,
+      }}
     >
       {children}
     </ProjectContext.Provider>

@@ -1,14 +1,14 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createProject } from "../../api/productApi";
+import { Project } from "../../api/type";
 import Button from "../../components/button";
 import Input from "../../components/input";
+import TextArea from "../../components/textarea";
+import { useProjectContext } from "../../context/ProjectContext";
 import { useSnackbar } from "../../context/SnackbarContext";
 import { routes } from "../../utils/constants/routes";
-import { Project } from "../../api/type";
-import TextArea from "../../components/textarea";
 import { Container, DescriptionBox, Footer } from "./style";
-import { useProjectContext } from "../../context/ProjectContext";
 
 const initialProjectDetails: Project = {
   id: "",
@@ -34,7 +34,7 @@ const ProjectCreate = () => {
     projectManager: false,
   });
 
-  const { fetchProjects } = useProjectContext();
+  const { projectList, fetchProjects } = useProjectContext();
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
 
@@ -63,13 +63,18 @@ const ProjectCreate = () => {
       showSnackbar("Please choose appropriate dates", "error");
       return;
     }
+
+    if (projectList.some((project) => project.id === projectDetails.id)) {
+      showSnackbar("Project ID already exists", "error");
+      return;
+    }
     setIsLoading(true);
     try {
       await createProject(projectDetails);
-      setProjectDetails(initialProjectDetails);
-      await fetchProjects();
       showSnackbar("Project created successfully", "success");
       navigate(`${routes.projectList}`);
+      await fetchProjects();
+      setProjectDetails(initialProjectDetails);
     } catch (error) {
       showSnackbar("Error creating project", "error");
     } finally {

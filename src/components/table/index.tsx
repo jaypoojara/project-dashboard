@@ -15,6 +15,7 @@ type Props = {
   handleEdit: (id: string, action: string) => void;
   handleAddToFavourite?: (id: string) => void;
   isLoading?: boolean;
+  isFavoriteLoading?: string;
 };
 
 const CustomTable = ({
@@ -23,6 +24,7 @@ const CustomTable = ({
   handleEdit,
   handleAddToFavourite,
   isLoading,
+  isFavoriteLoading,
 }: Props) => {
   return (
     <TableWrapper>
@@ -72,15 +74,20 @@ const CustomTable = ({
                 ))}
                 <TableCell>
                   <ActionCell>
-                    <Box
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => handleAddToFavourite?.(row?.id)}
-                      data-testid={`bookmark-icon-${row?.id}`}
-                    >
-                      <BookmarkSvgIcon
-                        fillColor={row.isFavourite ? "magenta" : ""}
-                      />
-                    </Box>
+                    {Boolean(isFavoriteLoading) &&
+                    isFavoriteLoading === row?.id ? (
+                      <CircularProgress size={20} />
+                    ) : (
+                      <Box
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => handleAddToFavourite?.(row?.id)}
+                        data-testid={`bookmark-icon-${row?.id}`}
+                      >
+                        <BookmarkSvgIcon
+                          fillColor={row?.isFavourite ? "magenta" : ""}
+                        />
+                      </Box>
+                    )}
                     <Button
                       label="Edit"
                       variant="contained"
