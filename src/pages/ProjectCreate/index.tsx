@@ -63,8 +63,7 @@ const ProjectCreate = () => {
       showSnackbar("Please choose appropriate dates", "error");
       return;
     }
-
-    if (projectList.some((project) => project.id === projectDetails.id)) {
+    if (projectList?.some((project) => project.id === projectDetails.id)) {
       showSnackbar("Project ID already exists", "error");
       return;
     }
