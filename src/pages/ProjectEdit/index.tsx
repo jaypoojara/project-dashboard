@@ -47,7 +47,7 @@ const ProjectEdit = () => {
       await fetchProjects();
       navigate(`${routes.projectList}`);
     } catch (error) {
-      showSnackbar("Error updating project:", error);
+      showSnackbar("Error updating project:", "error");
     } finally {
       setIsLoading(false);
     }

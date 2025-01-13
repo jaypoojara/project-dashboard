@@ -2,12 +2,12 @@
   "projects": [
     {
       "id": "project_a",
-      "projectName": "Project A",
+      "projectName": "Project A1",
       "startDate": "2025-01-01",
       "endDate": "2025-12-02",
       "projectManager": "John Dow",
       "isFavourite": true,
-      "description": ""
+      "description": "Demo"
     },
     {
       "id": "project_b",
@@ -24,7 +24,7 @@
       "startDate": "2025-01-27",
       "endDate": "2025-12-25",
       "projectManager": "Test Jay demo",
-      "isFavourite": false,
+      "isFavourite": true,
       "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo"
     },
     {
@@ -53,6 +53,15 @@
       "projectManager": "John Woe",
       "isFavourite": false,
       "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. "
+    },
+    {
+      "id": "project_a1",
+      "projectName": "Demo",
+      "startDate": "2025-01-14",
+      "endDate": "2025-01-22",
+      "projectManager": "Jay",
+      "description": "Hello world",
+      "isFavourite": true
     }
   ]
 }
