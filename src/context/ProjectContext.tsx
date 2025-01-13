@@ -54,7 +54,7 @@ export const ProjectProvider = ({
         setProjectList(newProjectList);
         showSnackbar("Added to Favourite", "success");
       } catch (error) {
-        showSnackbar("Error adding to favourite", error);
+        showSnackbar("Error adding to favourite", "error");
       } finally {
         setIsFavoriteLoading(undefined);
       }
