@@ -4,6 +4,11 @@ import Sidebar from ".";
 
 jest.mock("../../context/ProjectContext");
 
+jest.mock("react-router-dom", () => ({
+  useNavigate: jest.fn(),
+  useParams: jest.fn(),
+}));
+
 describe("Sidebar Component", () => {
   it("should render Sidebar with Favourite Projects heading", () => {
     (useProjectContext as jest.Mock).mockReturnValue({

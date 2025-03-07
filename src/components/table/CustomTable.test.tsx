@@ -5,6 +5,7 @@ import { projectListColumns } from "../../pages/ProjectList/constant";
 
 describe("CustomTable", () => {
   const mockHandleEdit = jest.fn();
+  const mockHandleAddToFavourite = jest.fn();
 
   const rows: Project[] = [
     {
@@ -14,6 +15,7 @@ describe("CustomTable", () => {
       endDate: "2023-12-31",
       projectManager: "John Doe",
       isFavourite: true,
+      description: "",
     },
     {
       id: "2",
@@ -21,7 +23,8 @@ describe("CustomTable", () => {
       startDate: "2023-02-01",
       endDate: "2023-10-15",
       projectManager: "Jane Smith",
-      isFavourite: false,
+      isFavourite: true,
+      description: "",
     },
   ];
 
@@ -31,6 +34,7 @@ describe("CustomTable", () => {
         rows={rows}
         columns={projectListColumns}
         handleEdit={mockHandleEdit}
+        handleAddToFavourite={mockHandleAddToFavourite}
       />
     );
 
@@ -45,6 +49,7 @@ describe("CustomTable", () => {
         rows={rows}
         columns={projectListColumns}
         handleEdit={mockHandleEdit}
+        handleAddToFavourite={mockHandleAddToFavourite}
       />
     );
 
@@ -62,6 +67,7 @@ describe("CustomTable", () => {
         rows={rows}
         columns={projectListColumns}
         handleEdit={mockHandleEdit}
+        handleAddToFavourite={mockHandleAddToFavourite}
       />
     );
 
@@ -69,7 +75,24 @@ describe("CustomTable", () => {
 
     fireEvent.click(editButtons[0]);
 
-    expect(mockHandleEdit).toHaveBeenCalledWith("1");
+    expect(mockHandleEdit).toHaveBeenCalledWith("1", "edit");
+  });
+
+  it("calls handleAddToFavourite when 'Bookmark Icon'  is clicked", () => {
+    render(
+      <CustomTable
+        rows={rows}
+        columns={projectListColumns}
+        handleEdit={mockHandleEdit}
+        handleAddToFavourite={mockHandleAddToFavourite}
+      />
+    );
+
+    const editButtons = screen.getAllByTestId("bookmark-icon-1");
+
+    fireEvent.click(editButtons[0]);
+
+    expect(mockHandleAddToFavourite).toHaveBeenCalled();
   });
 
   it("does not render action button in the table body", () => {

@@ -3,7 +3,7 @@ import { InputWrapper } from "./style";
 type Props = TextFieldProps & {
   label: string;
 };
-const CustomInput = ({ name, label, value, onChange, ...props }: Props) => {
+const Input = ({ name, label, value, onChange, ...props }: Props) => {
   return (
     <InputWrapper>
       <Typography width={150} textAlign={"end"}>
@@ -21,4 +21,4 @@ const CustomInput = ({ name, label, value, onChange, ...props }: Props) => {
   );
 };
 
-export default CustomInput;
+export default Input;

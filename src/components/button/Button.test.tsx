@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import CustomButton from ".";
+import Button from ".";
 
 jest.mock("./style", () => ({
   ButtonWrapper: ({ children, ...props }) => (
@@ -7,17 +7,17 @@ jest.mock("./style", () => ({
   ),
 }));
 
-describe("CustomButton Component", () => {
+describe("Button Component", () => {
   const mockOnClick = jest.fn();
 
   it("should render the button with the correct label", () => {
-    render(<CustomButton label="Click Me" onClick={mockOnClick} />);
+    render(<Button label="Click Me" onClick={mockOnClick} />);
 
     expect(screen.getByText("Click Me")).toBeInTheDocument();
   });
 
   it("should call onClick when the button is clicked", () => {
-    render(<CustomButton label="Click Me" onClick={mockOnClick} />);
+    render(<Button label="Click Me" onClick={mockOnClick} />);
 
     const button = screen.getByText("Click Me");
     fireEvent.click(button);
@@ -27,7 +27,7 @@ describe("CustomButton Component", () => {
 
   it("should pass the variant prop to the button", () => {
     render(
-      <CustomButton label="Click Me" variant="outlined" onClick={mockOnClick} />
+      <Button label="Click Me" variant="outlined" onClick={mockOnClick} />
     );
 
     const button = screen.getByText("Click Me");
@@ -37,7 +37,7 @@ describe("CustomButton Component", () => {
 
   it("should pass any additional props to the button", () => {
     render(
-      <CustomButton
+      <Button
         label="Click Me"
         onClick={mockOnClick}
         data-testid="custom-button"

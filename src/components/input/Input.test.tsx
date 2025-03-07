@@ -1,16 +1,16 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import CustomInput from ".";
+import Input from ".";
 
 jest.mock("./style", () => ({
   InputWrapper: ({ children }) => <div>{children}</div>,
 }));
 
-describe("CustomInput Component", () => {
+describe("Input Component", () => {
   const mockOnChange = jest.fn();
 
   it("should render label and input field", () => {
     render(
-      <CustomInput
+      <Input
         label="Username"
         name="username"
         value=""
@@ -26,9 +26,7 @@ describe("CustomInput Component", () => {
 
   it("should call onChange when input value changes", () => {
     const mockOnChange = jest.fn();
-    render(
-      <CustomInput label="Username" name="username" onChange={mockOnChange} />
-    );
+    render(<Input label="Username" name="username" onChange={mockOnChange} />);
 
     const input = screen.getByTestId("username");
     fireEvent.change(input, { target: { value: "new username" } });
@@ -41,7 +39,7 @@ describe("CustomInput Component", () => {
   });
   it("should pass value prop correctly to the input field", () => {
     render(
-      <CustomInput
+      <Input
         label="Username"
         name="username"
         value="john_doe"
@@ -55,7 +53,7 @@ describe("CustomInput Component", () => {
 
   it("should pass any additional props to the TextField component", () => {
     render(
-      <CustomInput
+      <Input
         label="Username"
         name="username"
         value="john_doe"
