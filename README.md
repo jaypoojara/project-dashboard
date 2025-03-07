@@ -1,5 +1,5 @@
 # Project Dashboard
-
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/jaypoojara/project-dashboard?labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit%20Reviews) 
 ## Description
 
 This project is a simple dashboard for managing projects. It uses React, TypeScript, and Webpack for the frontend and JSON Server for the backend.
